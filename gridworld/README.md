@@ -10,3 +10,18 @@ This dicrectory contains algorithm implementations for the gridworld problem. A 
 - tdlambda.py: this implements the TD(lambda) algorithm for control using the  eligibility curve idea. 
 - plots: contains some of the plots of the results for the optimal cost value function/ actions obtained.
 	- sarsa.png: for SARSA
+
+
+## How to run 
+
+- SARSA.py
+` 
+cmd> ipython
+>> %run sarsa.py
+`
+
+- tdlambda.py
+`
+cmd> ipython
+>> %run tdlambda.py
+`

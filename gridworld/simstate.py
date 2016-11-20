@@ -4,61 +4,6 @@ This file simulates the state transitions in a gridworld
 import numpy as np
 
 
-'''
-class stateTransDeterministic:
-    def __init__(self, x_zero=None, A=None, B=None,  numGridPts=10, dimstatespace=2):
-        """
-        @x_0: initial state value
-        @numGridPts: the grid world extends to +- numGridPts
-
-        """
-        if x_zero == None:
-            self.x_zero = tuple([0]*dimstatespace)
-            self.x = self.x_zero
-
-        if A == None:
-            A = np.eye((dimstatespace, dimstatespace))
-            B = np.eye((dimstatespace, dimstatespace))
-        self.numGridPts = numGridPts
-        self.A = A
-        self.B = B
-
-
-    def stateNext(self, action):
-        x_kplus1 = self.A*self.x+  B*u
-
-'''
-
-
-'''
-class stateTransition:
-    def __init__(self, x_zero=None, A=None, B=None,  numGridPts=10, dimstatespace=2):
-        """
-        @x_0: initial state value
-        @numGridPts: the grid world extends to +- numGridPts
-
-        """
-        if x_zero == None:
-            self.x_zero = tuple([0]*dimstatespace)
-            self.x = self.x_zero
-
-        if A == None:
-            A = np.eye((dimstatespace, dimstatespace))
-            B = np.eye((dimstatespace, dimstatespace))
-        self.numGridPts = numGridPts
-        self.A = A
-        self.B = B
-'''
-
-'''
-def create_initial_policy(stateSpace):
-    policy = dict()
-    for k in stateSpace:
-        policy[k] = actionset[np.random.randint(0, len(actionset))]
-    return policy
-'''
-
-
 class dynamics:
     def __init__(self, ndim=2, gridmax=10, target_state=None):
         self.x = np.zeros((ndim, 1))
@@ -101,14 +46,11 @@ def createStateSpace(gridMax):
     X, Y = np.meshgrid(x1, x1)
     return zip(X.flatten(), Y.flatten())
 
-if __name__=="__main__":
-    targetstate=(5, 5)
+if __name__ == "__main__":
+    targetstate = (5, 5)
     actionset = ((0, 1), (0, -1), (1, 0), (-1, 0), (0, 0))
     gridMax = 10
 
     dyna = dynamics(gridmax=gridMax, targetstate=targetstate)
     rewardmap = createRewardMap(targetstate, actionset)
     statespace = createStateSpace(gridMax)
-    policy = create_initial_policy(statespace)
-
-
