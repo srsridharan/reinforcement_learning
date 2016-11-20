@@ -10,14 +10,14 @@ import matplotlib.pyplot as plt
 
 target_state = (5, 5)
 actionset = ((0, 1), (0, -1), (1, 0), (-1, 0), (0, 0))
-gam_var = 0.5
+gam_var = 0.7
 alpha_var = 0.05
-gridMax = 9
+gridMax = 10
 default_q = 2
-lambda_var = .7
+lambda_var = .4
+
 
 dyna = simstate.dynamics(gridmax=gridMax, target_state=target_state)
-# rewardmap = simstate.createRewardMap(target_state, actionset)
 statespace = simstate.createStateSpace(gridMax)
 Q_val = {(target_state, a): 1 for a in actionset}
 
@@ -127,7 +127,7 @@ def plot_results(gridMax, Q1, A1):
 def run_iteration(tdObject):
     """
     input: tdlambda object
-    returns: dict with keys ('Qval_opt',  'A_opt')
+    returns: dict with keys ('Qval_optimal',  'action_optimal')
     """
     for k in xrange(2000):
             # select random starting state
@@ -164,4 +164,4 @@ if __name__ == "__main__":
     optval_dict = run_iteration(tditer)
 
     plot_results(gridMax,
-                 optval_dict['Qval_optimal'], optval_dict['Action_optimal'])
+                 optval_dict['Qval_optimal'], optval_dict['action_optimal'])
