@@ -15,13 +15,17 @@ This dicrectory contains algorithm implementations for the gridworld problem. A 
 ## How to run 
 
 - SARSA.py
-` 
+```python
 cmd> ipython
 >> %run sarsa.py
-`
+```
+
+![alt text][sarsafig]
+[sarsafig]: https://github.com/srsridharan/reinforcement_learning/blob/master/gridworld/plots/sarsa.png "SARSA optimal cost value function"
+
 
 - tdlambda.py
-`
+```python
 cmd> ipython
 >> %run tdlambda.py
-`
+```
