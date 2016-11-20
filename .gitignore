@@ -1,3 +1,4 @@
 *.pyc
 *.log
 gridworld/.idea/*
+.tdlambda.py.swp
