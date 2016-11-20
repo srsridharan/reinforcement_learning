@@ -3,6 +3,9 @@ This file implements the TD(0) i.e. SARSA approach
 """
 import numpy as np
 import simstate as simstate
+from matplotlib import cm
+from mpl_toolkits.mplot3d import Axes3D  # needed for the 3d projection
+import matplotlib.pyplot as plt
 
 target_state = (5, 5)
 actionset = ((0, 1), (0, -1), (1, 0), (-1, 0), (0, 0))
@@ -62,11 +65,6 @@ def reward_function(state_now, action_now, state_next):
 
 
 def plot_results(gridMax, Q1, A1):
-    from matplotlib import cm
-    from mpl_toolkits.mplot3d import Axes3D  # needed for the 3d projection
-    import matplotlib.pyplot as plt
-    import numpy as np
-
     fig = plt.figure()
     ax = fig.gca(projection='3d')
 
@@ -75,35 +73,51 @@ def plot_results(gridMax, Q1, A1):
                            linewidth=0, antialiased=False)
 
     fig.colorbar(surf, shrink=0.5, aspect=5)
-    plt.show()
-Q_val =  {(target_state, a): 1 for a in actionset}
-
-tditer = TDimplementation(Q_val=Q_val, default_q=default_q, alpha=alpha_var,
-                          discount_gam_var=gam_var,
-                          fn_reward_valuator=reward_function)
-for k in xrange(800):
-    # select random starting state
-    state_now = statespace[np.random.randint(0, 100)]
-    action_now = tditer.generate_action(state_now)
-    # while state is not target_state do
-    while state_now != target_state:
-        state_next = dyna.nextState(action_now, state_now)
-        action_next = tditer.generate_action(state_next)
-        tditer.Q_iter(state_now, action_now, state_next, action_next)
-
-        state_now = state_next
-        action_now = action_next
-
-# now compute the max value function
-Q1 = np.zeros((gridMax, gridMax))
-A1 = np.zeros((gridMax, gridMax))
-
-for s in statespace:  # TODO: can be refactored more elegantly using argmax
-    value_dict_for_state = {tditer.Qval.get((s, actionset[k]), -.1): k for k in
-                            range(len(actionset))}
-    keymax = max(value_dict_for_state)
-    Q1[s[0], s[1]] = keymax
-    A1[s[0], s[1]] = value_dict_for_state[keymax]
+    plt.show(block=False)
 
 
-plot_results(gridMax, Q1, A1)
+def run_tditer(tditer_object, nsteps=800):
+    '''
+    run the td iteration  for @nsteps  steps on a TD iterator object
+    @tditer_object
+
+    input:
+        @tditer_object
+        @nsteps: number of restarts
+    '''
+
+    for k in xrange(nsteps):
+        # select random starting state
+        state_now = statespace[np.random.randint(0, 100)]
+        action_now = tditer.generate_action(state_now)
+        # while state is not target_state do
+        while state_now != target_state:
+            state_next = dyna.nextState(action_now, state_now)
+            action_next = tditer.generate_action(state_next)
+            tditer.Q_iter(state_now, action_now, state_next, action_next)
+
+            state_now = state_next
+            action_now = action_next
+
+    # now compute the max value function
+    Q1 = np.zeros((gridMax, gridMax))
+    A1 = np.zeros((gridMax, gridMax))
+
+    for s in statespace:  # TODO: can be refactored more elegantly using argmax
+        value_dict_for_state = {tditer.Qval.get((s, actionset[k]), -.1): k for k
+                                in range(len(actionset))}
+        keymax = max(value_dict_for_state)
+        Q1[s[0], s[1]] = keymax
+        A1[s[0], s[1]] = value_dict_for_state[keymax]
+
+    return {'Qval_optimal': Q1, 'action_optimal': A1}
+
+
+if __name__ == "__main__":
+    Q_val = {(target_state, a): 1 for a in actionset}
+    tditer = TDimplementation(Q_val=Q_val, default_q=default_q, alpha=alpha_var,
+                              discount_gam_var=gam_var,
+                              fn_reward_valuator=reward_function)
+    td_iter_results = run_tditer(tditer, nsteps=800)
+    plot_results(gridMax, td_iter_results['Qval_optimal'],
+                 td_iter_results['action_optimal'])
