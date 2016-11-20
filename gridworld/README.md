@@ -1,6 +1,6 @@
 # Outline
 
-This dicrectory contains algorithm implementations for the gridworld problem. A system evolves determinisically  and the goal is to reach the destination. There are several algorithms described herein (ref contents).
+This directory contains algorithm implementations for the gridworld problem. A system evolves deterministically  and the goal is to reach the destination while being able  to control the evolution of the system by pushing the state to move up/down/left/right by one step each time. There are several algorithms described herein to obtain the optimal policy (ref Contents section below). For a more indepth insight into the algoritms refer to [the introduction to reinforcement learning document](https://github.com/srsridharan/smlNotes/blob/master/researchcode/RLnotes/rl_notes.pdf)
 
 ## Contents
 
@@ -21,7 +21,7 @@ cmd> ipython
 ```
 
 ![alt text][sarsafig]
-[sarsafig]: https://github.com/srsridharan/reinforcement_learning/blob/master/gridworld/plots/sarsa.png "SARSA optimal cost value function"
+[sarsafig]: https://github.com/srsridharan/reinforcement_learning/blob/master/gridworld/plots/sarsa.png "SARSA optimal cost value function for gridworld"
 
 
 - tdlambda.py
@@ -29,3 +29,6 @@ cmd> ipython
 cmd> ipython
 >> %run tdlambda.py
 ```
+![alt text][tdlambdafig]
+[tdlambdafig]: https://github.com/srsridharan/reinforcement_learning/blob/master/gridworld/plots/tdlambda.png "TD(lambda) optimal cost value function for gridworld"
+
