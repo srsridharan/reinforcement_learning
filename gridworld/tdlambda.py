@@ -121,7 +121,7 @@ def plot_results(gridMax, Q1, A1):
                            linewidth=0, antialiased=False)
 
     fig.colorbar(surf, shrink=0.5, aspect=5)
-    plt.show()
+    plt.show(block=False)
 
 
 def run_iteration(tdObject):
