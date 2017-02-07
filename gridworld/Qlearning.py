@@ -128,4 +128,3 @@ if __name__ == "__main__":
     qtd_iter_results = run_qtditer(qtditer, nsteps=1400)
     plot_results(gridMax, qtd_iter_results['Qval_optimal'],
                  qtd_iter_results['action_optimal'])
-
